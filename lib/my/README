@@ -1,0 +1,44 @@
+The additional bonus function, located in /bonus/SRC/my_sprintf.c, returns
+a structure of type sprintf_t containing an array of char* which have been
+formatted, and an int corresponding to the number of char* of that array,
+allowing to save formatted data for later usage.
+
+USAGE EXAMPLE:
+
+#include "my.h"
+#include <fnctl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+void illustrate_example(void)
+{
+    char *firstname1 = "James";
+    char *lastname1 = "Bond";
+    char *firstname2 = "Mario";
+    sprintf_t user1;
+    sprintf_t user2;
+    int fd = open("./user_presentation_database", O_WRONLY | O_APPEND);
+
+    user1 = my_sprintf("My name is %s. %s %s.\n", lastname1, firstname1, lastname1);
+    user2 = my_sprintf("It's me, %s!\n", firstname2);
+    for (int i = 0; i < user1.nb_strings; i++)
+        write(fd, user1.output[i], my_strlen(user1.output[i]));
+    for (int i = 0; i < user2.nb_strings; i++)
+        write(fd, user2.output[i], my_strlen(user2.output[i]));
+}
+
+int main(void)
+{
+    illustrate_example();
+    return (0);
+}
+
+RESULT:
+_____________________________________
+file:      user_presentation_database
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Pikachu!!!
+Your friendly neighbor, Spiderman.
+My name is Bond. James Bond.$
+It's me, Mario!

@@ -1,0 +1,9 @@
+TO DO:
+    - DONE -------Split exec_cmd function
+    - DONE -------fork exec and wait child process to end
+    - DONE -------free env->value in destroy_env()
+    - DONE -------Correct loss of pointer with unsetenv the first var
+    - DONE -------Correct segfault with unsetenv last var
+    - DONE -------hide [1] done when echoing in mysh
+    - DONE -------avoid segfault when echoing in mysh
+    - DONE -------Empty lines makes segmentation faults
